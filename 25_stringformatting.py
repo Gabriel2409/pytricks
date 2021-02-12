@@ -197,21 +197,50 @@ b = 2
 print(f"{a}+{b}={a+b}")
 
 # %%
+# behind the scene
+import dis
+def greet(location, name):
+	return f"Hello {location} ! General {name}"
+dis.dis(greet)
+"""
+https://stackoverflow.com/questions/12673074/how-should-i-understand-the-output-of-dis-dis
+Number on the fartleft is the line number in the source code where the execution starts
+The numbers in the column on the left are the offset of the instruction within the bytecode
+the numbers on the right are the opargs : further investigation needed
+"""
+#%%
+# almost the same as (real implementation is faster because uses BUILD_STRING)
+def greet2(location, name):
+	return ("Hello " + location + "! General " + name)
+dis.dis(greet2)
+
+# %%
 # So pretty cool but can cause security issue. Never use f strings to process user inputs or even format! 
-# à revoir demain
+
 
 SECRET_ENV_VARIABLE = "my secret"
-class ShowUserInput():
-
+class BackendOperation():
 	def __init__(self):
 		pass
-	def show(self,inp):
-		print(inp.format())
+	
 
-uu = ShowUserInput()
-uu.show("Test")
-uu.__init__.__globals__["SECRET_ENV_VARIABLE"]
-# %%
-uu.show({'uu.__init__.__globals__["SECRET_ENV_VARIABLE"]'})
+backend_operation = BackendOperation() 
+
+user_input = '{backend.__init__.__globals__[SECRET_ENV_VARIABLE]}'
+
+# if for a reason or another we do this formatting (i did not manage to find a better example...)
+print(user_input.format(backend=backend_operation))
 
 # %%
+# Ok we get the point, in certain circumstances, using format with user input can make the user access variables. Which means we need a special way to process user input. 
+from string import Template
+t = Template("Hello, $location!")
+print(t.substitute(location="there"))
+#%%
+user_input2 = '${backend.__init__.__globals__[SECRET_ENV_VARIABLE]}'
+
+Template(user_input2).substitute(backend=backend_operation)
+
+# %%
+# Conclusion : Use string litterals ! It makes code really easy to read. 
+# But use template strings if you deal with user inputs. You can not do all the cool stuff with them like changing the format (you have to do it manually) but it is safer
