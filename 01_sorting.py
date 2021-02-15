@@ -60,7 +60,7 @@ sorted(sandwiches, key=lambda x: (x.size,x.sauce))
 sorted(sandwiches, key=operator.attrgetter("size","sauce"))
 
 # %%
-# what if i want to organize by size and reverse by sauce ? 
+# what if i want to organize by size and reverse by sauce ?
 def multisort(xs, specs):
 	for key, reverse in reversed(specs):
 		xs.sort(key=operator.attrgetter(key), reverse=reverse)
