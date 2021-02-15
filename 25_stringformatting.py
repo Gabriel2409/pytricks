@@ -4,7 +4,9 @@
 
 
 # u : unicode string for backward compatibility
-# r : raw string : ingnore escapte characters
+# r : raw string : ignore escape characters
+# b : byte string
+# f : formatted strings
 import re
 print("unicode\t", u"unicode\t", "unicode\t" == u"unicode\t")
 print("unicode\t", r"unicode\t", "unicode\t" == r"unicode\t")
@@ -172,7 +174,7 @@ print("{:f}".format(nbnew))
 print("{:+.2f}".format(nbnew))
 print("{nb:+.2f}".format(nb=nbnew))
 
-# Good news : everything we did before works the same way and you won't have to try to find % on your keyboard. 
+# Good news : everything we did before works the same way and you won't have to try to find % on your keyboard.
 
 # %% [markdown]
 # # Let's go further : literal string interpolation (python 3.6+)
@@ -185,8 +187,8 @@ print(f"Hello {location}")
 # %%
 nblit = -85.2
 print(f"Number {nblit:05.0f}")
-# no need to format anymore ! 
-# plus you can combine f and r ! 
+# no need to format anymore !
+# plus you can combine f and r !
 verb = "like"
 print(fr"The linter \does not {verb:s} it though ")
 
@@ -222,9 +224,9 @@ SECRET_ENV_VARIABLE = "my secret"
 class BackendOperation():
 	def __init__(self):
 		pass
-	
 
-backend_operation = BackendOperation() 
+
+backend_operation = BackendOperation()
 
 user_input = '{backend.__init__.__globals__[SECRET_ENV_VARIABLE]}'
 
@@ -232,7 +234,7 @@ user_input = '{backend.__init__.__globals__[SECRET_ENV_VARIABLE]}'
 print(user_input.format(backend=backend_operation))
 
 # %%
-# Ok we get the point, in certain circumstances, using format with user input can make the user access variables. Which means we need a special way to process user input. 
+# Ok we get the point, in certain circumstances, using format with user input can make the user access variables. Which means we need a special way to process user input.
 from string import Template
 t = Template("Hello, $location!")
 print(t.substitute(location="there"))
@@ -242,5 +244,5 @@ user_input2 = '${backend.__init__.__globals__[SECRET_ENV_VARIABLE]}'
 Template(user_input2).substitute(backend=backend_operation)
 
 # %%
-# Conclusion : Use string litterals ! It makes code really easy to read. 
+# Conclusion : Use string litterals ! It makes code really easy to read.
 # But use template strings if you deal with user inputs. You can not do all the cool stuff with them like changing the format (you have to do it manually) but it is safer
