@@ -8,8 +8,8 @@ tbox = Textbox()
 print(tbox.public)
 print(tbox._private)
 # %%
-# So i can access every var even with a leading _. It is more there to communicate the intent. 
-# Note that only vars and methods without _ are imported if you do a wild card import. But you should never do that. 
+# So i can access every var even with a leading _. It is more there to communicate the intent.
+# Note that only vars and methods without _ are imported if you do a wild card import. But you should never do that.
 # %%
 # Trailing underscore. No real impact : useful when a keyword is already taken
 def try_to_use_python_class_keyword(class):
@@ -19,7 +19,7 @@ def try_to_use_python_class_keyword(class):
 def try_to_use_python_class_keyword(class_):
 	pass
 # %%
-# Dunder 
+# Dunder : a dunder is a double underscore __
 class WithDunder:
 	def __init__(self):
 		self.standard = "standard"
@@ -35,7 +35,7 @@ print(dund.__dunder)
 # %%
 # Huh, no attribute dunder ? 
 dir(dund)
-
+# %%
 class Overrider(WithDunder):
 	def __init__(self):
 		super().__init__()
@@ -49,6 +49,8 @@ print(over.standard)
 print(over._leading)
 print(over.trailing_)
 print(over.__dunder)
+#%%
+dir(over)
 #%%
 print(over._WithDunder__dunder)
 print(over._Overrider__dunder)
@@ -82,7 +84,7 @@ class Child(Parent):
 		super().__init__()
 		self.__dunder = "overriden"
 	def get_child_dunder(self):
-		return self.__dunder # here i can access __dunder 
+		return self.__dunder # here i can access __dunder
 
 ch = Child()
 print(ch.get_dunder())
@@ -90,7 +92,7 @@ print(ch.get_child_dunder())
 
 
 # %%
-# __init__ is not name mangled : no name mangling for dunder before and after ! 
+# __init__ is not name mangled : no name mangling for dunder before and after !
 # Dont name your var with __ __ because you may conflict with future updates to python code.
 # bonus : single underscore
 # _ is the result of the last expression IF YOU ARE WORKING ON INTERPRETER
@@ -100,5 +102,5 @@ def get_vals():
 
 (imp, _) = get_vals()
 print(imp)
-
 # %%
+

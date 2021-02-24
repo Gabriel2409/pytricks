@@ -17,7 +17,7 @@ sorted("Alpha, charlie, beta, Delta".split())
 # %%
 # The value of the key parameter should be a function (or other callable) that takes a single argument and returns a key to use for sorting purposes. This technique is fast because the key function is called exactly once for each input record.
 sorted("Alpha, charlie, beta, Delta".split(), key=str.lower)
-
+# %%
 sorted([1, 5, 3, 10, 15, 19, 2, 5, 9, 13, 11, 2], key=lambda x: x > 6)
 
 
@@ -47,7 +47,7 @@ class Sandwich:
 sandwiches = [Sandwich("jambon", "ketchup", 50), Sandwich(
     "poulet", "mayonnaise", 100), Sandwich("tofu", "moutarde", 25),
 	Sandwich("salad", "alsacienne", 25)]
-
+print(sandwiches)
 # %%
 sorted(sandwiches, key=lambda x: x.size, reverse=True)
 
