@@ -1,11 +1,13 @@
+#%%
 import sys
 import time
+import traceback
 # * Supporting with with our own object : https://docs.python.org/3/reference/datamodel.html#context-managers
 
 class myOwnClassToOpenFiles:
 
     def __init__(self,name):
-        """We need the name argument so that we can instantiate it with the name of the file we want to open"""		
+        """We need the name argument so that we can instantiate it with the name of the file we want to open"""
         self.name = name
 
     def __enter__(self):
@@ -19,9 +21,9 @@ class myOwnClassToOpenFiles:
         If the context is executed normally, they will be none
 
         Args:
-            exc_type ([type]): [description]
-            exc_val ([type]): [description]
-            exc_tb ([type]): [description]
+            exc_type : for ex TypeError
+            exc_val : for ex Invalid Format
+            exc_tb : the full traceback 
         """		
         if self.file:
             self.file.close()
@@ -29,32 +31,35 @@ class myOwnClassToOpenFiles:
         if exc_type:
             print("Exception Type", exc_type)
             print("Exception Value", exc_val)
-            print("Exception Traceback", exc_tb)
+            print("Exception Traceback", traceback.print_tb(exc_tb))
+# Note that the traceback module is made to pprint exceptions
+#%%
+with myOwnClassToOpenFiles("jambon.txt") as f:
+    f.write("test")
 
-# with myOwnClassToOpenFiles("jambon.txt") as f:
-# 	f.write("test")
-
+#%%
 # same as 
-# opener = myOwnClassToOpenFiles("chorizo.txt")
+opener = myOwnClassToOpenFiles("chorizo.txt")
 
-# try:
-# 	opener.__enter__()
-# 	opener.file.write("rr")
-# finally:
-# 	opener.__exit__(None, None, None)
+try:
+    opener.__enter__()
+    opener.file.write("rr")
+finally:
+    opener.__exit__(None, None, None)
+#%%
 
+with myOwnClassToOpenFiles("jambon.txt") as f:
+    print(undefined)
 
-# with myOwnClassToOpenFiles("jambon.txt") as f:
-# 	raise ValueError("Wrong value")
-
-# opener2 = myOwnClassToOpenFiles("chorizo.txt")
-# try:
-# 	opener2.__enter__()
-# 	raise ValueError("Wrong value")
-# finally:
-# 	print(sys.exc_info())
-# 	opener2.__exit__(sys.exc_info()[0], sys.exc_info()[1], sys.exc_info()[2])
-
+#%%
+opener2 = myOwnClassToOpenFiles("chorizo.txt")
+try:
+    opener2.__enter__()
+    print(undefined)
+finally:
+    print(sys.exc_info())
+    opener2.__exit__(*sys.exc_info())
+#%%
 # * Exercise 1 : Indenter
 # What if i want to implement a context manager that support indenting
 
@@ -74,32 +79,33 @@ class Indenter:
         self.level -=1
 
 
-# with Indenter() as i:
-# 	i.print("Indent")
-# 	with i:
-# 		i.print("Indent2")
-# 	i.print("Indent") 
+with Indenter() as i:
+    i.print("Indent")
+    with i:
+        i.print("Indent2")
+    i.print("Indent")
 
 
+#%%
 # * Exercise 2 : Timer
 
-# class myTimer:
-# 	def __init__(self):
-# 		pass
+class myTimer:
+    def __init__(self):
+        pass
 
-# 	def __enter__(self):
-# 		self.entertime = time.time()
-# 		return self
+    def __enter__(self):
+        self.entertime = time.time()
+        return self
 
-# 	def __exit__(self, exc_type, exc_val, exc_tb):
-# 		finaltime = time.time()
-# 		print(f"Execution time: {finaltime - self.entertime}s")
+    def __exit__(self, exc_type, exc_val, exc_tb):
+        finaltime = time.time()
+        print(f"Execution time: {finaltime - self.entertime}s")
 
 
-# with myTimer():
-# 	for i in range(10000000):
-# 		pass
-        
+with myTimer():
+    for i in range(10000000):
+        pass
+#%%
 # * WIth contextlib : context manager implements 
 
 from contextlib import contextmanager
@@ -117,7 +123,7 @@ with open_file("boo.txt") as f:
 
 
 
-
+#%%
 @contextmanager
 def timer():
     try:
@@ -131,39 +137,27 @@ with timer():
     for i in range(10000000):
         pass
 
-
+#%%
 # does not work well :  cant reuse already instanciated 
 @contextmanager
 def indent():
     level = 0
-    def print(text):
-        text = '\t' * level + text
-        print(text)
     try:
         level +=1
+        print(level)
         yield
     finally:
         level -=1
 
-with indent():
-    print("Hello")
-    with indent():
-        print("There")
-    print("General Kenobi")
+# For indentation it is not possible. The contextmanager dont allow access to inner funcs and you cant to sometihing like
+with indent() as i:
+    with i:
+        pass
 
-# %%
-import re
-subject = "/blobServices/default/containers/28269G21 – P500m/blobs/34043G21_MMK Metalürji_Slip"
-pattern = "/blobServices/default/containers/(.*)/blobs/(.*)"
-result = re.match(pattern, subject)
-if result:
-    groups = result.groups()
-print(groups[0], "//", groups[1])
-print("a" + groups[1])
 # %%
 import traceback
 def err_func_2():
-    raise ValueError("test")
+    print(undefined)
 
 def err_func():
     err_func_2()
@@ -173,10 +167,12 @@ def encapsulate():
 
 # %%
 encapsulate()
-# %%
+# %% try except works if the error is from a child function
 try:
     encapsulate()
 except:
     print("except")
     traceback.print_exception(*sys.exc_info())
     # raise
+
+# %%

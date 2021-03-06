@@ -1,18 +1,19 @@
+# %%
 def example1():
     try:
         print(undefined_var)
     finally:
         print("Executed in the finally block")
-
-
+example1()
+# %%
 def example2():
     try:
         print("defined")
     finally:
         print("Executed in the finally block")
 
-
-
+example2()
+# %%
 def example3():
     try:
         print(undefined_var)
@@ -21,7 +22,8 @@ def example3():
     finally:
         print("Executed in the finally block")
 
-
+example3()
+# %%
 def example4():
     try:
         print("defined")
@@ -30,6 +32,9 @@ def example4():
     finally:
         print("Executed in the finally block")
 
+example4()
+# * finally is executed after the try except statement. If there is an error, it first goes through the except statement and then in the finally block. If there is no except statement or if the error is raised again in the except, the code in finally is executed BEFORE the error is raised
+# %%
 # Bonus catch the right error
 
 def example5():
@@ -37,19 +42,19 @@ def example5():
         print(undefined_var)
     except NameError:
         print("The error was caught")
-
-
+example5()
+# %%
 def example6():
     try:
         print(undefined_var)
     except ValueError:
         print("The error was caught")
 
-# Bonus raise after catch : execute code only if there is an error (not the same as finally : why ? )
+# Bonus raise after catch : execute code only if there is an error (not the same as finally : why ? Because finally executes whether or not the try statement is successful or not
+example6()
 
 
-
-
+# %%
 def example7():
     try:
         print(undefined_var)
@@ -57,58 +62,51 @@ def example7():
         print("The error was caught and we will raise it again")
         raise
 
-
-
-# Bonus the with statement
-
+example7()
+# %% [markdown]
+# # :Bonus the with statement
+# %%
 def example8():
-	with open("jambon.txt", "w") as f:
-		f.write("beurre")
-
-
+    with open("jambon.txt", "w") as f:
+        f.write("beurre")
 
 def example8bis():
-	f = open("jambon.txt", "w")
-	f.write("beurre")
-	f.close()
-
-
-
+    f = open("jambon.txt", "w")
+    f.write("beurre")
+    f.close()
 
 # ? example8 and example8bis : do they really do the same thing ? 
-
 # ? What if we change w with r
 
 def example9():
-	with open("jambon.txt", "r") as f:
-		f.write("beurre")
-
+    with open("jambon.txt", "r") as f:
+        f.write("beurre")
 
 def example9bis():
-	f = open("jambon.txt", "r")
-	f.write("beurre")
-	f.close()
+    f = open("jambon.txt", "r")
+    f.write("beurre")
+    f.close()
 
+
+# %%
+example8()
+# %%
+example8bis()
+# %%
+example9()
+# %%
 example9bis()
+# %%
 
 
-
-
-
-
-
-
-
-
-
-# * You guessed it the f.close is not executed in example9bis. In fact if i want to achieve the same result as example8, i should write: 
-# * This guarantees the file is closed even if an error occurs. 
+# * You guessed it the f.close is not executed in example9bis. In fact if i want to achieve the same result as example8, i should write:
+# * This guarantees the file is closed even if an error occurs.
 def example8ter():
-	f = open("jambon.txt", "w")
-	try:
-		f.write("beurre")
-	finally:
-		f.close()
+    f = open("jambon.txt", "w")
+    try:
+        f.write("beurre")
+    finally:
+        f.close()
 
 
 
@@ -135,3 +133,5 @@ def example8ter():
 # Error was caught and raised again
 
 # example8()
+
+# %%

@@ -2,21 +2,20 @@
 # # Sorting in python : https://docs.python.org/3/howto/sorting.html
 
 # %%
-import operator
+
 a = [1, 3, 5, 4, 2, 5]
 print(sorted(a))  # new list object
-# lists also have a sort method :
 
 # %%
+# lists also have a sort method :
 print(a.sort())  # it returns none
-# %%
 print(a)  # sort method modified the list directly
 # %%
-sorted("Alpha, charlie, beta, Delta".split())
+sorted("Alpha charlie beta Delta".split())
 
 # %%
 # The value of the key parameter should be a function (or other callable) that takes a single argument and returns a key to use for sorting purposes. This technique is fast because the key function is called exactly once for each input record.
-sorted("Alpha, charlie, beta, Delta".split(), key=str.lower)
+sorted("Alpha charlie beta Delta".split(), key=str.lower)
 # %%
 sorted([1, 5, 3, 10, 15, 19, 2, 5, 9, 13, 11, 2], key=lambda x: x > 6)
 
@@ -30,6 +29,7 @@ sorted(mydict.items())
 # %%
 sorted(mydict.items(), key=lambda x: x[1])
 # %%
+import operator
 sorted(mydict.items(), key=operator.itemgetter(1))
 
 
