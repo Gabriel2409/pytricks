@@ -2,7 +2,7 @@
 # # Priority queue
 # %%
 import heapq
-class PriorityQueue:
+class MyPriorityQueue:
 	def __init__(self):
 		self._queue = []
 		self._index = 0
@@ -21,7 +21,7 @@ class Item:
 		return f"Item({self.name!r})"
 
 # %%
-q = PriorityQueue()
+q = MyPriorityQueue()
 q.push(Item("P1"),1)
 q.push(Item("P1"),1)
 q.push(Item("P6"),5)
@@ -33,5 +33,21 @@ q.pop()
 q.pop()
 # %%
 q.pop()
-# %%
 # pop returns items with highest priority by order of insertion
+#%%
+from queue import PriorityQueue
+q2 = PriorityQueue()
+dir(q2)
+# %%
+q2.put((2, "zzz"))
+q2.put((2, "aaa"))
+q2.put((1, "bbb"))
+q2.put((1, "yyyy"))
+q2.put((4, "ccc"))
+q2.put((3, "ddd"))
+
+while not q2.empty():
+	next_item = q2.get()
+	print(next_item)
+
+# %%

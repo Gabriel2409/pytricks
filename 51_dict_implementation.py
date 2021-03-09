@@ -167,7 +167,6 @@ b = HashAndEqClass()
 my_dict = {a:1, b:2}
 my_dict
 #%%
-
 class Test:
 	def __init__(self, val, myhash,name):
 		self.val = val
