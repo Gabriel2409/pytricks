@@ -210,3 +210,33 @@ food_and_price = ("ice cream", 4)
 my_dict_info = {"name": "Jack", "country": "Denmark", "age": 19}
 positional_and_keyword_func(*food_and_price, can_be_both="and_now?", **my_dict_info)
 # %%
+class Jambon:
+	def __init__(self, val):
+		self.val = val
+		self.ee = "454"
+		self.ff = "ggggg"
+		self.list = [1,2]
+
+	def kill(self):
+		del self
+
+jam = Jambon(5)
+
+class Beurre(Jambon):
+	def __init__(self, val, val2):
+		super.__init__(val)
+		self.val2 = val2
+
+	@classmethod
+	def from_jambon(cls, jambon, val2):
+		bb = cls.__new__(cls)
+		bb.__dict__ = jambon.__dict__
+		del jambon
+		# jambon.list[1] = 5
+		bb.val2 = val2
+		return bb
+# %%
+xx = Beurre.from_jambon(jam, 8)
+# %%
+jam.list
+# %%
