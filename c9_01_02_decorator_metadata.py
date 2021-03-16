@@ -206,6 +206,10 @@ myfunc.__wrapped__.__wrapped__()
 
 """The way it is implemented in the source code : for each stacked decorator, the __wrapped__ attribute of the wrapper points directly to the function it wraps"""
 # %%
+
+"""write a decorator that multiplies the result by two"""
+
+#%%
 import inspect
 # it seems inspect follows the wrapped chain to return the original function.
 # More analysis on the inspect module would be nice

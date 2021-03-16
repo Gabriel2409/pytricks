@@ -77,11 +77,11 @@ outer(myvar="outer")
 def outer(myvar):
 	def inner1():
 
-		myvar = "inner1"
 		def inner2():
 			nonlocal myvar
 			myvar = "inner2"
 
+		myvar = "inner1"
 		print(myvar)
 		inner2()
 		print(myvar)
