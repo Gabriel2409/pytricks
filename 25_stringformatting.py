@@ -1,12 +1,23 @@
 # %% [markdown]
-# # Old style
+# # String formatting
 # https://docs.python.org/3/library/stdtypes.html#old-string-formatting
-
-
-# u : unicode string for backward compatibility
-# r : raw string : ignore escape characters
-# b : byte string
-# f : formatted strings
+"""
+types of strings : r, u, b, f
+why raw in regex
+Old style formatting
+format keyword
+f strings
+behind the scene
+template strings
+"""
+# %%
+"""u : unicode string for backward compatibility
+r : raw string : ignore escape characters
+b : byte string
+f : formatted strings"""
+# %% [markdown]
+# ## raw string in regex
+# %%
 import re
 print("unicode\t", u"unicode\t", "unicode\t" == u"unicode\t")
 print("unicode\t", r"unicode\t", "unicode\t" == r"unicode\t")
@@ -47,7 +58,8 @@ print(a2)
 pattern3 = "(\\\\dpizza)"
 a3 = re.search(pattern3, test_str)
 print(a3)
-
+# %% [markdown]
+# ## Old style formatting
 
 # %%
 # I can use a single value or a tuple

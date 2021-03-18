@@ -1,3 +1,5 @@
+#%% [markdown] 
+# # nonlocal experiments
 #%%
 def outer(myvar):
 	def inner():

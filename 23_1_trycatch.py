@@ -1,3 +1,9 @@
+# %% [markdown] try catch
+"""
+Finally execution
+catching exceptions
+with statement intro
+"""
 # %%
 def example1():
     try:

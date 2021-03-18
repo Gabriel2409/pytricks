@@ -5,8 +5,7 @@ update_wrapper / wraps implementation
 access wrapped element
 stack decorators
 """
-#%% 
-
+#%%
 def gothrough(n):
     """Goes through n number"""
     for _ in range(n):
@@ -71,7 +70,6 @@ def timethisbest(func):
     """Times a func with wraps decorator"""
     @wraps(func)
     def wrapper(*args, **kwargs):
-        """wrapper docstring"""
         start = time.time()
         func(*args, **kwargs)
         end = time.time()
@@ -203,6 +201,7 @@ myfunc()
 myfunc.__wrapped__() # what will i get ?
 # %%
 myfunc.__wrapped__.__wrapped__()
+# %%
 
 """The way it is implemented in the source code : for each stacked decorator, the __wrapped__ attribute of the wrapper points directly to the function it wraps"""
 # %%

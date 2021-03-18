@@ -1,3 +1,11 @@
+#%% [markdown] : 
+# #_ and __
+"""
+_l : private (but not really)
+t_ : change name
+__ : dunder, name mangling
+_ = discard
+"""
 #%% single leading underscore _var
 class Textbox:
 	def __init__(self):

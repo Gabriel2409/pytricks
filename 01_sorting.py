@@ -1,6 +1,9 @@
 # %% [markdown]
 # # Sorting in python : https://docs.python.org/3/howto/sorting.html
-
+"""
+sort vs sorted
+key : lambda / operator
+"""
 # %%
 
 a = [1, 3, 5, 4, 2, 5]

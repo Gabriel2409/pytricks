@@ -1,4 +1,7 @@
-#%%
+#%% [markdown]
+# # context manager
+# %%
+
 import sys
 import time
 import traceback
