@@ -1,3 +1,9 @@
+"""
+namedtuples
+struct
+simplenamespace
+"""
+
 #%% named tuple : a good way to write more readable code by enforcing the structure of your data : you can't mispell a field
 from collections import namedtuple
 p1 = namedtuple("Point", "x y z")(1,2,3)

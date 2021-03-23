@@ -1,3 +1,11 @@
+# %% 
+"""
+lists, tuples
+array
+str
+bytes
+ascii experiments
+"""
 # %% Array are contiguous data structures : They store information in adjoining blocks of memory. (by opposition to linked data structure which are chunks of memory linked by pointer, like linked-lists)
 
 # %% lists are dynamic array : elements can be added or removed and python will automatically add or release memory

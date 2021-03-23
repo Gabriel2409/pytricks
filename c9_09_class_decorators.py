@@ -1,3 +1,9 @@
+#%%
+""" 
+class decorator : basic
+class decorator : __get__
+"""
+
 #%% [markdown]
 # # Class decorators for functions
 #%%
@@ -43,18 +49,19 @@ passer2 = Profiled(passer2)
 # %%
 passer2() # increase because passer2 is now an instance of Profiled. The decorator does that
 # %% [markdown]
-# # make your class decorator method compatible
+# # Make your class decorator method compatible
+#%%
 class Test:
     @Profiled
-    def test(self):
+    def fail(self):
         print(42)
 
 
-Test().test() # error ! why ? 
+Test().fail() # error ! why ? 
 # %%
 """
-If we decompose : we have test = Profiled(test) whihch means test is now an attribute of Test. When I access Test().test(), it calls the __get__ method of the test attribute..
-In conclusion, if you define a decorator as a class, you need to implement the __get__ method in order to use it inside classes
+If we decompose : we have fail = Profiled(fail) which means fail is now an attribute of Test. When I access Test().fail(), it calls the __get__ method of the fail attribute..
+In conclusion, if you define a decorator as a class, you need to implement the __get__ method in order to use it inside other classes
 """
 
 class Profiled2:
@@ -118,6 +125,55 @@ Baz().baz()
 """
 Further investigation needed on the __get__ and types.MethodType
 """
+# %%
+"""
+Exercise : rewrite the Profiled2 decorator as a function decorator
+"""
+# %%
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+# %%
+def profiled2(func):
+    ncalls = 0
+    @wraps(func)
+    def wrapper(*args, **kwargs):
+        nonlocal ncalls
+        ncalls +=1
+        print("CALL", ncalls)
+        return func(*args, **kwargs)
+
+    return wrapper
+
+@profiled2
+def passtime():
+    pass
+
+# %%
+passtime()
 # %%

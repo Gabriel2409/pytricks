@@ -1,3 +1,15 @@
+# %% [markdown] 
+# # dicts in python
+"""
+also see c1_09 file
+creating a dict + basic methods
+eq and hash
+crazy dict : override a key
+OrderedDict + __reversed__
+defaultdict + __missing__
+chainMap
+readonly dict with MappingProxyTypes
+"""
 # %%
 my_dict = {'key1': "value1", "key2": 9, 45: "ff", (45, 78): 39}
 print(my_dict)

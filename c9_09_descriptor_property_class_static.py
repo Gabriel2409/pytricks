@@ -4,6 +4,7 @@ How property works
 The right way to use property
 class and static methods
 stack decorator with class and static method
+lazy property
 """
 
 #%% [markdown]
@@ -91,7 +92,6 @@ class Tester3:
     """val = property(fget=getval, fset=setval, fdel=delval, doc="val property")
     is the same as the 4 lines above where i instantiate property and then define the getter, setter and deleter.
     """
-
     val = property()
     val = val.getter(getval)
     # I can also replace the two lines above with val = property(getval)
@@ -177,7 +177,6 @@ class StaticMethod:
         return self.f
 
 
-
 class ClassMethod:
     "Emulate PyClassMethod_Type() in Objects/funcobject.c and adds print of instance and owner"""
     def __init__(self, f):
@@ -259,30 +258,97 @@ class Ok:
         pass
 
 Ok.passer()
-#%%
-
-aa = {"a":1, "b":2, "c":0}
-
-min(aa[key] for key in ["a", "n"] & aa.keys())
-# %%
-
-class Field:
-    def __init__(self,val):
-        self.val = val
-
-    def __repr__(self):
-        return f"<Field : val {self.val:f}>"
-
-
-a = {"aa":Field(5)}
-# %%
-a["aa"]
-# %%
-a["aa"].val = 9
-# %%
-aa = set((1,2,5,6))
-aa.add(6)
 
 # %%
-aa
+def lazy_property(fn):
+    '''Decorator that makes a property lazy-evaluated.
+    '''
+    attr_name = '_lazy_' + fn.__name__
+
+    @property
+    def _lazy_property(self):
+        if not hasattr(self, attr_name):
+            setattr(self, attr_name, fn(self))
+        return getattr(self, attr_name)
+    return _lazy_property
+
+class Person:
+    def __init__(self, name, occupation):
+        self.name = name
+        self.occupation = occupation
+
+    @lazy_property
+    def relatives(self):
+        # Get all relatives
+        for _ in range(100000000):
+            pass
+
+        return 5
+
 # %%
+a = Person("a","d")
+
+# %%
+a.relatives
+# %%
+dir(a)
+# %%
+class User1:
+    def __init__(self, username):
+        self.username = username
+        self._profile_data = None
+        print(f"{self.__class__.__name__} instance created")
+
+    @property
+    def profile_data(self):
+        if self._profile_data is None:
+            print("self._profile_data is None")
+            self._profile_data = self._get_profile_data()
+        else:
+            print("self._profile_data is set")
+        return self._profile_data
+
+    def _get_profile_data(self):
+        # get the data from the server and load it to memory
+        print("Run the expensive operation")
+        fetched_data = "The mock data of a large size"
+        return fetched_data
+# %%
+u = User1(5)
+# %%
+u.profile_data
+# %%
+u.profile_data
+# %%
+import json
+from json import JSONEncoder
+
+class MyJSONEncoder(JSONEncoder):
+    def default(self, o):
+        if hasattr(o, 'toJSON'):
+            return o.toJSON()
+        return super().default(o)
+
+
+class C:
+    def __init__(self, name):
+        self.name = name
+    def toJSON(self):
+        return {"name":self.name}
+
+c = C("jon")
+class D:
+    def __init__(self, name, cc):
+        self.name = name
+        self.cc = cc
+
+    def toJSON(self):
+        return {"name":self.name, "cc":self.cc}
+
+
+d = D("ff", c)
+
+
+print(json.dumps(d, cls=MyJSONEncoder))
+with open("gg.json", "w+") as fp:
+        json.dump(d, fp, indent=4, cls=MyJSONEncoder)
