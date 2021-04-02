@@ -5,7 +5,7 @@ class decorator : __get__
 """
 
 #%% [markdown]
-# # Class decorators for functions
+# # Class decorators
 #%%
 import types
 from functools import wraps
@@ -130,33 +130,6 @@ Further investigation needed on the __get__ and types.MethodType
 Exercise : rewrite the Profiled2 decorator as a function decorator
 """
 # %%
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 # %%
 def profiled2(func):

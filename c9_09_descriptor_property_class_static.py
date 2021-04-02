@@ -10,7 +10,8 @@ lazy property
 #%% [markdown]
 # # Classic accessor : BAD
 # Note : only do this if you want to add extra funcs to get, set and delete
-#%% [markdown]
+
+#%%
 class Tester:
     def __init__(self, val):
         self.val = val
