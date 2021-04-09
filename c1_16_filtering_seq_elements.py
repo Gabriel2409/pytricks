@@ -1,4 +1,13 @@
 #%% filter elements based on a criteria
+"""
+list comp with if
+gen exp with if
+with filter
+"""
+
+
+#%%
+# list comp
 mylist = [1, 5, 9, 8, -5, -8, -5, 5, 4, -5, -2, -1, 4, 3]
 
 #list comprehension
