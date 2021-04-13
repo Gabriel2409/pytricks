@@ -24,7 +24,7 @@ print(list(dedupe([99, 1,2,3,4,5,4,5,4,5,4,3,5,2,10])))
 
 # %%
 # unhashable type
-set({"a":1}, {"a":1}, {"a":2})
+set(({"a":1}, {"a":1}, {"a":2}))
 # %%
 list(dedupe([{"a":1}, {"a":1}, {"a":2}]))
 # %%
@@ -38,6 +38,27 @@ def dedupe(items, key=None):
 			seen.add(val)
 # %%
 list(dedupe([{"a":1}, {"a":1}, {"a":2}], key = lambda x: x["a"]))
+#%%
+import operator
+class Car:
+	def __init__(self, name, color):
+		self.name = name
+		self.color = color
+	def __repr__(self):
+		return f"<Car: {self.name} of color {self.color}>"
+
+a = Car("BMW", "blue")
+b = Car("Audi", "blue")
+c = Car("BMW", "green")
+d = Car("BMW", "blue")
+#%%
+print(list(dedupe([a, b, c, d])))
+#%%
+print(list(dedupe([a, b, c, d], key= operator.attrgetter("color"))))
+#%%
+print(list(dedupe([a, b, c, d], key= operator.attrgetter("name"))))
+#%%
+print(list(dedupe([a, b, c, d], key= operator.attrgetter("name", "color"))))
 
 # %%
 tboxlist = []
