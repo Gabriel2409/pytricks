@@ -13,15 +13,18 @@ rows = [
 ]
 
 sorted_rows = sorted(rows, key = operator.itemgetter("meal"))
+sorted_rows
 # %%
 for group, items in itertools.groupby(sorted_rows, key = operator.itemgetter("meal")):
-	print(group)
+	print("-----------")
+	print("GROUP", group)
 	for item in items:
-		print(item)
+		print("ITEM", item)
 # %%
 # you need to sort first
 for group, items in itertools.groupby(rows, key = operator.itemgetter("meal")):
-	print(group)
+	print("-----------")
+	print("GROUP", group)
 	for item in items:
-		print(item)
+		print("ITEM", item)
 # %%
