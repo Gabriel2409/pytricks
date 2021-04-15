@@ -61,7 +61,7 @@ class UpToFive:
 
 u = UpToFive(0)
 # %%
-next(u)
+next(u) # Note : possibility to add a second arg to next (terminating value)
 # %%
 for el in u:
 	print(el)
