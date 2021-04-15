@@ -7,7 +7,8 @@ Spoiler : use chain if you want to go fast
 # %%
 # # experiments
 from itertools import chain
-
+import functools
+import operator
 # %%
 def create_sublist(i, max_val):
 	sub = []
@@ -30,6 +31,9 @@ list(chain(*(sublist for sublist in mysmalllist)))
 # %%
 list(chain.from_iterable(sublist for sublist in mysmalllist))
 # %%
+functools.reduce(operator.iconcat, mysmalllist, [])
+# %%
+
 """
 Timing
 """
@@ -50,3 +54,7 @@ list(chain(*(sublist for sublist in mylist)))
 %%timeit
 list(chain.from_iterable(sublist for sublist in mylist))
 # %%
+%%timeit
+functools.reduce(operator.iconcat, mylist, [])
+# %%
+# https://stackoverflow.com/questions/952914/how-to-make-a-flat-list-out-of-a-list-of-lists
