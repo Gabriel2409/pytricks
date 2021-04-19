@@ -4,6 +4,7 @@ Decorator with args
 Modify a decorator at run time with nonlocal
 Manually set decorator vars
 Optional args
+Inject arg
 """
 #%%
 from functools import partial, wraps
@@ -254,3 +255,40 @@ def spam():
 	print('spam')
 spam()
 # %%
+# %%
+
+from functools import wraps
+import inspect
+
+
+def optional_debug(func):
+
+    # prevents debug from being an arg of the function
+    if "debug" in inspect.getfullargspec(func).args:
+        raise TypeError("Debug arg already defined")
+
+    @wraps(func)
+    def wrapper(*args, debug=False, **kwargs):
+        if debug:
+            # do debug stuff
+            print("Calling", func.__name__)
+        return func(*args, **kwargs)
+
+    # modifies signature so that it adds debug arg to the func
+    sig = inspect.signature(func)
+    parms = list(sig.parameters.values())
+    parms.append(
+        inspect.Parameter("debug", inspect.Parameter.KEYWORD_ONLY, default=False)
+    )
+    wrapper.__signature__ = sig.replace(parameters=parms)
+    return wrapper
+
+
+# %%
+@optional_debug
+def passer():
+    pass
+
+passer.__signature__
+# %%
+passer(debug=True)
