@@ -35,10 +35,10 @@ iterator = r.__iter__() # or iter(r)
 el = iterator.__next__() # or next(el)
 print(el)
 #%%
-"""iterator = r.__iter__() # or iter(r)
+""" iterator = r.__iter__() # or iter(r)
 while True:
 	el = iterator.__next__() # or next(el)
-	print(el)"""
+	print(el) """
 # %%
 # * So you really have two steps, the first one is to call the __iter__ method (most of the time you can return the whole object in the iter) and then call the __next__ method several times
 
@@ -82,8 +82,6 @@ mylist = [1,2,3]
 next(mylist) # ? what will i get here ? 
 # %%
 it = iter(mylist)
-next(it)
-next(it)
-next(it)
+# %%
 next(it)
 # %%
