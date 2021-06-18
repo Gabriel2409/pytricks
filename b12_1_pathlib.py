@@ -17,7 +17,7 @@ contents.
 A byte is an integer between 0 and 255. Bytes are stored on the physical storage
 device. When accessing a file, these bytes are read in sequence from the disk.
 When opening the file, the programmer must first convert the bytes to the appropriate
-format. Fortunatly, Python does most of the work for us.
+format. Fortunately, Python does most of the work for us.
 
 File system: A computer file system provides an abstract representation of the files stored
 on the computer and interfaces with devices to control the storage and retrieval
@@ -34,8 +34,6 @@ pathlib is the preferred way: it is more recent and more readable
 #%%
 """Basics"""
 #%%
-
-import myfakemodule
 import pathlib
 # * pathlib allows us to create path objects : notice the / instead of \
 pathlib.Path.home()

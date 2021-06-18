@@ -131,3 +131,4 @@ Conclusion : the module is very basic. With a little bit of tweaking, you can do
 However, using pandas might be easier
 The csv module is best used for simple cases
 """
+# %%
