@@ -1,7 +1,7 @@
 #%%
 """
 classes without repr and str
-repr 
+repr
 repr + str
 """
 #%%
@@ -18,7 +18,8 @@ a
 # * repr but no str
 class Pointv2(Point):
 	def __repr__(self):
-		return f"x={self.x}, y={self.y}"
+		# return f"x={self.x}, y={self.y}"
+		return f"Pointv2(x={self.x}, y={self.y})"
 
 b = Pointv2(2,3)
 print(b)
